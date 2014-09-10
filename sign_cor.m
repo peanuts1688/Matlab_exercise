@@ -17,8 +17,9 @@ clear
   g3 = exp(-t/5).*(ustep(t)-ustep(t-5));
   g4 = exp(-t).*(ustep(t)-ustep(t-5));
   g5 = sin(2*pi*t).*(ustep(t)-ustep(t-5));
+  g6 = ustep(t)-ustep(t-2.5);
 
-  subplot(231);
+  subplot(241);
   sig1 = plot(t,x,'k');
   xlabel('\it t');
   ylabel('\it x(t)');
@@ -26,7 +27,7 @@ clear
   axis([-0.5 6 -1.2 1.2]);
   grid;
   
-  subplot(232);
+  subplot(242);
   sig2 = plot(t,g1,'k');
   xlabel('\it t');
   ylabel('\it g_1(t)');
@@ -34,15 +35,23 @@ clear
   axis([-0.5 6 -1.2 1.2]);
   grid;
 
-  subplot(233);
+  subplot(243);
   sig3 = plot(t,g2,'k');
   xlabel('\it t');
   ylabel('\it g_2(t)');
   set(sig3, 'Linewidth',2);
   axis([-0.5 6 -1.2 1.2]);
   grid;
+  
+  subplot(244);
+  sig7 = plot(t,g6,'k');
+  xlabel('\it t');
+  ylabel('\it g_1(t)');
+  set(sig7, 'Linewidth',2);
+  axis([-0.5 6 -1.2 1.2]);
+  grid;
 
-  subplot(234);
+  subplot(245);
   sig4 = plot(t,g3,'k');
   xlabel('\it t');
   ylabel('\it g_3(t)');
@@ -50,7 +59,7 @@ clear
   axis([-0.5 6 -1.2 1.2]);
   grid;
 
-  subplot(235);
+  subplot(246);
   sig5 = plot(t,g4,'k');
   xlabel('\it t');
   ylabel('\it g_4(t)');
@@ -58,7 +67,7 @@ clear
   axis([-0.5 6 -1.2 1.2]);
   grid;
 
-  subplot(236);
+  subplot(247);
   sig6 = plot(t,g5,'k');
   xlabel('\it t');
   ylabel('\it g_5(t)');
@@ -74,6 +83,7 @@ clear
   E3 = sum(g3.*conj(g3))*Dt;
   E4 = sum(g4.*conj(g4))*Dt;
   E5 = sum(g5.*conj(g5))*Dt;
+  E6 = sum(g6.*conj(g6))*Dt;
 
   % correlation coefficients do not care about magnitude of the signals, thus divide by sqrt engergy products of the two signals
   c0 = sum(x.*conj(x))*Dt/(sqrt(E0*E0))       
@@ -82,3 +92,4 @@ clear
   c3 = sum(x.*conj(g3))*Dt/(sqrt(E0*E3))
   c4 = sum(x.*conj(g4))*Dt/(sqrt(E0*E4))
   c5 = sum(x.*conj(g5))*Dt/(sqrt(E0*E5))
+  c6 = sum(x.*conj(g6))*Dt/(sqrt(E0*E6))    % the correlation of a half similar signal is sqrt(2) = 0.707!!!!

@@ -16,6 +16,8 @@
   t = [0:Dt:T-Dt];    % "t" goes for one period [0,T] in Dt increment
 % Then evaluate the signal over the range of "T"
   y = exp(-abs(t)/2).*sin(2*pi*t).*(ustep(t)-ustep(t-4));
+  y3_periodic = [];
+  y3 = ustep(t-4);
 % Multiple periods can now be generated.
   time = [];
   y_periodic = [];
@@ -26,14 +28,20 @@
                               % ....
                               %               (2)*6+(0Dt) , (2)*6+(1Dt) , (2)*6+(2Dt) , (2)*6+(3Dt) ... (2)*6+(T-Dt)
     y_periodic = [y_periodic y];      % feeding inputs t to y, repeat for (-M) ~ M times, make PERIODICS
+    y3_periodic = [y3_periodic y3];
   end
 
   figure(1);
   subplot(221);
   fy = plot(time, y_periodic);
+  hold on;
+  fig3 = plot(time, y3_periodic,':r');
   set(fy,'Linewidth',2);
   xlabel('\it t');
   title('y = exp(-abs(t)/2).*sin(2*pi*t).*(ustep(t)-ustep(t-4))');
+  subplot(221);
+  axis([-20 20 -1 1.2]);
+  grid;
 
 
 % y1: exp(-abs(t)/2);  
@@ -70,6 +78,8 @@
 
 % y3: ustep(t)-ustep(t-4);  
   subplot(224);
+  % y3 = ustep(t)
+  % y3 = ustep(t-4)
   y3 = ustep(t)-ustep(t-4);
   y3_periodic = [];
   for i = -M:M-1,
